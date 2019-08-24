@@ -1,0 +1,183 @@
+/* Floating Action Button */
+/* .fixed-button {
+    content:'+';
+background-color: #FF2434;
+color: #FFFFFF;
+border: none;
+outline: none;
+position: fixed;
+bottom: 0px;
+right: 15px;
+height: 50px;
+width: 50px;
+margin-bottom: 20px;
+border-radius: 30px;
+box-shadow: 1px 3px 5px #888888;
+} */
+
+.fixed-button {
+	z-index: 1;
+}
+
+
+@keyframes wobble {
+16.65% {
+    -webkit-transform: translateY(8px);
+    -ms-transform: translateY(8px);
+    transform: translateY(8px);
+}
+33.3% {
+    -webkit-transform: translateY(-6px);
+    -ms-transform: translateY(-6px);
+    transform: translateY(-6px);
+}
+49.95% {
+    -webkit-transform: translateY(4px);
+    -ms-transform: translateY(4px);
+    transform: translateY(4px);
+}
+66.6% {
+    -webkit-transform: translateY(-2px);
+    -ms-transform: translateY(-2px);
+    transform: translateY(-2px);
+}
+83.25% {
+    -webkit-transform: translateY(1px);
+    -ms-transform: translateY(1px);
+    transform: translateY(1px);
+}
+100% {
+    -webkit-transform: translateY(0);
+    -ms-transform: translateY(0);
+    transform: translateY(0);
+}
+}
+
+.wobble {
+-webkit-animation-name: wobble;
+animation-name: wobble;
+-webkit-animation-duration: 1s;
+animation-duration: 1s;
+-webkit-animation-timing-function: ease-in-out;
+animation-timing-function: ease-in-out;
+-webkit-animation-iteration-count: 1;
+animation-iteration-count: 1;
+}
+
+
+
+/* Floating Button Whatsapp */
+.float{
+	position:fixed;
+	width:60px;
+	height:60px;
+	bottom:40px;
+	right:40px;
+	background-color:#25d366;
+	color:#FFF;
+	border-radius:50px;
+	text-align:center;
+  font-size:30px;
+	box-shadow: 2px 2px 3px #999;
+  z-index:100;
+}
+
+.float-coba {
+	background-color:#25d366;
+	color:#FFF;
+	border-radius:50px;
+	text-align:center;
+  	font-size:30px;
+	box-shadow: 2px 2px 3px #999;
+  	z-index:100;
+}
+
+.my-float{
+	margin-top:5px;
+	font-size:30px;
+}
+
+
+
+/*  */
+
+.fixed-button {
+/* content:'+'; */
+background-color:#25d366;
+/* color: #FFFFFF; */
+border: none;
+outline: none;
+position: fixed;
+bottom: 0px;
+right: 15px;
+height: 50px;
+width: 50px;
+margin-bottom: 20px;
+border-radius: 30px;
+box-shadow: 1px 3px 5px #888888;
+}
+
+
+/* CARD IFRAME GOOGLE MAPS */
+.gede {
+	display: inline-block;
+}
+
+.kecil {
+	width: 50%;
+}
+
+
+/* Footer */
+
+#sticky-footer {
+	flex-shrink: none;
+  }
+
+
+
+/* FOOTER ALTERNATIVe */
+
+footer{
+     background-color: #33383c;
+     padding:30px 0px;
+}	       
+
+
+.address li, .menu li{
+    margin:20px 0px;
+    list-style: none;
+}
+
+/* UL tag */
+.address {
+	margin:20px 0px;
+    list-style: none;
+}
+
+
+.footer-title {
+	color: #FFF; 
+	font-weight: bold; 
+	border-bottom: 1px solid #c7c7c7; 
+	padding:10px 0px;
+	/* display: block; */
+	text-transform: uppercase;
+	font-size: 16px;
+	letter-spacing: 3px;
+
+}
+
+
+/* CAROUSEL */
+  /* Make the image responsive */
+.carousel-inner img {
+	min-width: 100%;
+}
+
+
+/* JUMBOTRON HOME*/
+    /*bikin image responsive*/
+.jumbotron-resp img {
+    min-width : 100%;
+}
