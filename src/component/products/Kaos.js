@@ -15,18 +15,21 @@ class Kaos extends Component{
     renderListProduct = () => {
         let render = this.props.productsSTATE.map( product => {
             return (
-                <div className="card col-11 col-sm-5 col-md-3 col-lg-3 m-3 shadow" key={product.id} >
+                <div className="card col-12 col-sm-5 col-md-3 col-lg-3 m-3 shadow" key={product.id} >
                     <center>
                     {/* <img src={`http://localhost:/products/${product.image}`} className="card-img-top shadow-lg mt-2" alt="products" style={borderRadius} /> */}
                     </center>
                     
                     <div className='card-body'>
                         <h5 className='card-title'> {product.product_name} </h5>
-                        <span 
-                        className={'badge badge-pill ' + ( product.category === 'Exterior' ? 'badge-primary' : ( product.category === 'Interior' ? 'badge-success' : 'badge-danger' ) ) }> {product.category} </span>
+                        <img src={`http://localhost:4000/product/photos/${product.thumbnail}`} style={{ width: "100%", borderRadius: "25px" }} className = 'my-2'></img>
+                        <span style={{ width: "60px" }}
+                        className={'badge badge-pill ' + ( product.category === 'kaos' ? 'badge-primary' : ( product.category === 'kemeja' ? 'badge-success' : 'badge-danger' ) ) }> {product.category} </span>
+                        {product.status === 1 ? <h3 className='badge badge-pill badge-primary ml-2'>Tersedia</h3> : <h3 className='badge badge-pill badge-danger ml-2'>Tidak Tersedia</h3>}
+
                         <p className='card-text'> Rp. {product.price.toLocaleString()} </p>
                         
-                        <Link to={`/productdetail/${product.id}`} >
+                        <Link to={`/product/${product.id}`} >
                             <button className="btn btn-danger btn-block" > Detail </button>
                         </Link>
                     </div>
@@ -47,17 +50,6 @@ class Kaos extends Component{
                     <div className="col-sm-12 col-md-2 col-lg-2 mt-2 ">
                         <div className="card make-me-sticky">
                             <article className="card-group-item mt-3">
-                                <header className="card-header bg-danger"><h6 className="title text-white"> Category </h6></header>
-                                <div className="filter-content">
-                                    <div className="list-group list-group-flush">
-                                        {/* {this.renderCategory()} */}
-
-                                        {/*  */}
-                                    <a href="#" className="list-group-item">Exterior <span className="float-right badge badge-light round">10</span> </a>
-                                    <a href="#" className="list-group-item">Interior  <span className="float-right badge badge-light round">5</span>  </a>
-                                    <a href="#" className="list-group-item">Engine <span className="float-right badge badge-light round">4</span>  </a>
-                                    </div>  
-                                </div>
                             </article> 
                             <article className="card-group-item">
                                 <header className="card-header bg-danger">

@@ -7,7 +7,7 @@ const init = {
     phone_number : '', 
     verified : '',
     thumbnail : '', 
-    avatar :''
+    avatar :null
 }
 
 
@@ -29,7 +29,7 @@ export default (state = init, action) => {
                 phone_number : '', 
                 verified : '',
                 thumbnail : '', 
-                avatar :''
+                avatar :null
             }
         case 'UPDATE_AVATAR': 
             return{
@@ -39,7 +39,7 @@ export default (state = init, action) => {
         case 'DELETE_AVATAR' :
             return{
                 ...state,
-                avatar : ''
+                avatar : null
             }
         case 'EDIT_PROFILE' :
             return{

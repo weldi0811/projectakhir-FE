@@ -6,9 +6,15 @@ import Login from './Login'
 import Register from './Register'
 import Kaos from '../component/products/Kaos'
 import Kemeja from '../component/products/Kemeja'
+import ProductDetail from '../component/products/ProductDetail'
 import AllProduct from '../component/products/AllProduct'
 import AdminLogin from '../component/admin/AdminLogin'
 import Profile from '../component/users/Profile'
+import AddKaos from './admin/AddKaos'
+import AddKemeja from './admin/AddKemeja'
+import AdminDashboard from '../component/admin/AdminDashboard'
+import ListProduct from '../component/admin/ListProduct'
+import DetailProduct from '../component/admin/DetailProduct'
 
 import {BrowserRouter,Route} from 'react-router-dom'
 import {keepLogin} from '../actions/index'
@@ -16,6 +22,7 @@ import {connect} from 'react-redux'
 
 
 import cookies from 'universal-cookie';
+
 
 const cookie = new cookies()
 
@@ -32,7 +39,13 @@ class App extends Component {
   render() {
     return (
         <BrowserRouter>
-            <Route path ='/admin' component={AdminLogin}/>
+            <Route path ='/admin' exact component={AdminLogin}/>
+            <Route path ='/inputkaos' component={AddKaos}/>
+            <Route path ='/inputkemeja' component={AddKemeja}/>
+            <Route path ='/dashboard' component={AdminDashboard}/>
+            <Route path ='/listproduk' component={ListProduct}/>
+            <Route path ='/admin/produk/:prod_id' component={DetailProduct}/>
+
 
             <Header />
             <Route path ='/' exact component={Home} />
@@ -40,6 +53,7 @@ class App extends Component {
             <Route path ='/register' component={Register} />
             <Route path ='/kaos' component={Kaos} />
             <Route path ='/allproduct' component={AllProduct} />
+            <Route path ='/product/:prod_id' component={ProductDetail} />
             <Route path ='/kemeja' component={Kemeja} />
             <Route path ='/profile' component = {Profile} />
             <Footer />

@@ -1,6 +1,5 @@
 import axios from '../config/axios'
 import cookies from 'universal-cookie'
-import { async } from 'q';
 
 const cookie = new cookies()
 
@@ -64,7 +63,7 @@ export const onLogout = () => {
 export const updateAvatar = (formData,objectUser) => {
     return async (dispatch) => {
         //form data = {}
-        const result = await axios.post('/users/avatar',formData)
+        const result = await await axios.patch('/users/avatar',formData)
 
         cookie.remove('ithinkUser')
 
@@ -118,11 +117,11 @@ export const deleteAvatar = (objectUser) => {
     return async dispatch => {
         const {id,first_name,last_name,username,email,phone_number,avatar} = objectUser
 
-        const res = await axios.delete('/users/avatar', {username})
+        const res = await await axios.delete(`/users/avatar/${id}`)
 
         cookie.remove('ithinkUser')
 
-        cookie.set('ithinkUser', {id,first_name,last_name,username,email,phone_number,avatar: ''} )
+        cookie.set('ithinkUser', {id,first_name,last_name,username,email,phone_number,avatar: null} )
 
         dispatch({
             type: 'DELETE_AVATAR'
@@ -162,7 +161,7 @@ export const getProductByCategory = (category_id) => {
 export const getAllProduct = () => {
     return async(dispatch) => {
         try{
-            const result = await axios.get(`/product`)
+            const result = await axios.get(`/allproduct`)
 
             dispatch({
                 type: 'GET_ALL_PRODUCT',
@@ -181,7 +180,60 @@ export const clearProduct = () => {
     }
 }
 
-//NARIK PRODUCT SEMUA
+//DELETE PRODUK BY ID
+
+export const updateStatusProduct = (productID) => {
+    return async() => {
+        try {
+            const res = await axios.patch(`/statusproduct/${productID}`)
+        } catch (error) {
+            console.error(error)
+            
+        }
+    }
+
+
+}
+
+//EDIT PRODUK
+export const editProduct = (productID, product_name, price, description) => {
+    return async () => {
+        try {
+            const res = await axios.patch(`/product/${productID}`,{
+                product_name,price,description
+            })
+            return res.data
+        } catch (error) {
+            console.error(error)
+            
+        }
+    }
+}
+
+
+//ADD PRODUCT BY CATEGORY
+export const addKaos = (formData) => {
+    return async () => {
+        try {
+            const res = await axios.post('/product/1', formData)
+
+        }
+        catch (err){
+            console.error(err)
+        }
+    }
+}
+
+export const addKemeja = (formData) => {
+    return async () => {
+        try{
+            const res = await axios.post('/product/2', formData)
+        }
+        catch (err) {
+            console.error(err)
+        }
+    }
+}
 
 
 

@@ -33,15 +33,15 @@ class Profile extends Component {
     }
 
     //update avatar
-    updateAvatar = () => {
+    uploadAvatar = () => {
         this.props.deleteAvatar(this.props.objectUser)
-
-        const formData = new FormData()
-
+        
         const newAvatar = this.avatar.files[0]
+        const formData = new FormData()
 
         console.log(newAvatar)
 
+        formData.append('id', this.props.objectUser.id)
         formData.append('username', this.props.objectUser.username)
         formData.append('avatar', newAvatar)
 
@@ -65,7 +65,7 @@ class Profile extends Component {
                                 <input type='file' className="custom-file" ref={input => this.avatar = input}/>
                                 {/* <button className="btn btn-primary" onClick={this.uploadAvatar} >{ avatar === null ? 'Upload Avatar' : 'Change Avatar'}</button> */}
                                
-                                <button className="btn btn-primary" onClick={this.updateAvatar} >{ avatar === '' ? 'Upload Avatar' : 'Change Avatar'}</button>
+                                <button className="btn btn-primary" onClick={()=>{this.uploadAvatar()}} >{ avatar === null ? 'Upload Avatar' : 'Change Avatar'}</button>
 
                                 {/* if user has an avatar, Button Delete Avatar will be appeared */}
                                 {/* {  avatar !== null ? <button className="btn btn-danger" onClick={this.deleteAvatar} >Delete Avatar</button> : ''  } */}
@@ -79,7 +79,6 @@ class Profile extends Component {
                                 <p className="lead">Email : {email} </p>
                                 <p className="lead">
                                     <Button className='btn btn-dark float-left' color="primary" onClick={() => {this.onEditButton()}}>Edit</Button>
-                                    <Button className='btn btn-dark float-left' color="primary" onClick={() => {console.log(this.props.objectUser)}}>console</Button>
                                 </p>
                             </div>
                         </div>
@@ -89,14 +88,6 @@ class Profile extends Component {
         )
     }
 
-    //fungsi buat nampilin avatar default (avatar = '')
-    renderDefaultAvatar = () => {
-        return(
-            <div>
-
-            </div>
-        )
-    }
 
     //fungsi buat mau edit
     onEditButton = () => {
@@ -118,12 +109,12 @@ class Profile extends Component {
                         <div className="row">
                             {/* KOLOM BUAT FOTO*/}
                             <div className="col-4 col-md-4 col-sm-6">
-                            { avatar === '' ? <img src={default_avatar} alt="avatar_default" style={ { width: "200px" } } /> : <img src={`http://localhost:4000/users/avatar/${avatar}`} style={ { width: "200px", borderRadius: "150px" } }  alt={this.props.objectUser.avatar} key={ new Date() } />  }
+                            { avatar === null ? <img src={default_avatar} alt="avatar_default" style={ { width: "200px" } } /> : <img src={`http://localhost:4000/users/avatar/${avatar}`} style={ { width: "200px", borderRadius: "150px" } }  alt={this.props.objectUser.avatar} key={ new Date() } />  }
 
                                 {/* <input type='file' className="custom-file" ref={input => this.avatar = input}  />  */}
                                 <input type='file' className="custom-file" />
                                 {/* <button className="btn btn-primary" onClick={this.uploadAvatar} >{ avatar === null ? 'Upload Avatar' : 'Change Avatar'}</button> */}
-                                <button className="btn btn-primary">upload</button>
+                                <button className="btn btn-primary">Change Avatar </button>
 
                                 {/* if user has an avatar, Button Delete Avatar will be appeared */}
                                 {/* {  avatar !== null ? <button className="btn btn-danger" onClick={this.deleteAvatar} >Delete Avatar</button> : ''  } */}
@@ -162,9 +153,6 @@ class Profile extends Component {
         )
 
     }
-
-
-
     render() {
         if (this.props.objectUser.id != '') {
             if (this.state.edit === false) {
@@ -180,7 +168,7 @@ class Profile extends Component {
 
         }
         else {
-            return <Redirect to='/home' />
+            return <Redirect to='/' />
 
         }
     }

@@ -96,7 +96,7 @@ class Header extends React.Component{
     }
 
     headerLogin = () => {
-        console.log(this.props.objectUser)
+    
         return(
             <div>
                 <Navbar color="light" light expand="md">

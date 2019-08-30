@@ -13,7 +13,7 @@ export default ( state = init, action) => {
             return {
                 products : []
             }
-        case 'GET_PRODUCT' :
+        case 'GET_ALL_PRODUCT' :
             return{
                 ...state,
                 products : action.payload
