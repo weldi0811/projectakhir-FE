@@ -223,4 +223,11 @@ class DetailProduct extends Component {
     }
 }
 
-export default connect(null, { updateStatusProduct, getAllProduct, editProduct })(DetailProduct);
+const mapStatetoProps = state => {
+    return {
+        objectAdmin: state.adminAuth // bikin namanya sesuka hati
+
+    }
+}
+
+export default connect(mapStatetoProps, { updateStatusProduct, getAllProduct, editProduct })(DetailProduct);

@@ -167,6 +167,17 @@ class Header extends React.Component{
                                 </NavItem>
 
                                 <NavItem className ='mx-2'>
+                                    <Link to='/checkout'>
+                                        <button className = 'btn btn-light'>checkout</button>
+                                    </Link>
+                                </NavItem>
+                                <NavItem className ='mx-2'>
+                                    <Link to='/myorder'>
+                                        <button className = 'btn btn-light'>My orders</button>
+                                    </Link>
+                                </NavItem>
+
+                                <NavItem className ='mx-2'>
                                         <button className = 'btn btn-light' onClick={()=>{this.props.onLogout()}}>logout</button>
                                 </NavItem>
                                 </div>

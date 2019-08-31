@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import { Button, Jumbotron } from 'reactstrap'
+import {connect} from 'react-redux'
 
 class AdminDashboard extends Component {
 
@@ -49,4 +50,11 @@ class AdminDashboard extends Component {
     }
 }
 
-export default AdminDashboard;
+const mapStatetoProps = state => {
+    return {
+        objectAdmin: state.adminAuth // bikin namanya sesuka hati
+
+    }
+}
+
+export default connect(mapStatetoProps) (AdminDashboard);

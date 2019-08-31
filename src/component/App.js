@@ -10,6 +10,9 @@ import ProductDetail from '../component/products/ProductDetail'
 import AllProduct from '../component/products/AllProduct'
 import AdminLogin from '../component/admin/AdminLogin'
 import Profile from '../component/users/Profile'
+import CartUser from '../component/users/CartUser'
+import CheckoutUser from '../component/users/CheckoutUser'
+import Transaction from '../component/users/Transaction'
 import AddKaos from './admin/AddKaos'
 import AddKemeja from './admin/AddKemeja'
 import AdminDashboard from '../component/admin/AdminDashboard'
@@ -56,6 +59,9 @@ class App extends Component {
             <Route path ='/product/:prod_id' component={ProductDetail} />
             <Route path ='/kemeja' component={Kemeja} />
             <Route path ='/profile' component = {Profile} />
+            <Route path ='/cart' component = {CartUser} />
+            <Route path ='/checkout' component = {CheckoutUser} />
+            <Route path ='/myorder' component = {Transaction} />
             <Footer />
             
         </BrowserRouter>

@@ -60,7 +60,9 @@ class ListProduct extends Component {
 
 const mapStatetoProps = state => {
     return {
-        productsSTATE: state.product.products
+        productsSTATE: state.product.products,
+        objectAdmin: state.adminAuth // bikin namanya sesuka hati
+
     }
 }
 

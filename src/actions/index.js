@@ -1,5 +1,7 @@
 import axios from '../config/axios'
 import cookies from 'universal-cookie'
+import { async } from 'q';
+import { truncate } from 'fs';
 
 const cookie = new cookies()
 
@@ -281,6 +283,339 @@ export const onLogoutAdmin = () => {
     }
 }
 
+
+
+////////////////////////////////////////////////////////
+///////////////////   CART
+////////////////////////////////////////////////////////
+
+//narik cart user
+
+export const getCart = (objectUser) => {
+
+    return async dispatch => {
+        const res = await axios.get(`/cart/${objectUser.id}`) //bentuknya [{}]
+ 
+        dispatch({
+            type: 'GET_CART',
+            payload: res.data
+        })
+    }
+    
+}
+
+//add cart
+
+//size S
+export const addToCartS = (prod_id, user_id, qty_S) => {
+
+    return async() => {
+        const res = await axios.post(`/addtocarts`, {
+            product_id : prod_id,
+            user_id : user_id,
+            qty_S : qty_S
+        })
+
+        return res.data
+    }
+}
+
+//SIZE M
+export const addToCartM = (prod_id, user_id, qty_M) => {
+
+    return async() => {
+        const res = await axios.post(`/addtocartm`, {
+            product_id : prod_id,
+            user_id : user_id,
+            qty_M : qty_M
+        })
+
+        return res.data
+    }
+}
+
+//SIZE L
+export const addToCartL = (prod_id, user_id, qty_L) => {
+
+    return async() => {
+        const res = await axios.post(`/addtocartl`, {
+            product_id : prod_id,
+            user_id : user_id,
+            qty_L : qty_L
+        })
+
+        return res.data
+    }
+}
+
+//SIZE XL
+export const addToCartXL = (prod_id, user_id, qty_XL) => {
+
+    return async() => {
+        const res = await axios.post(`/addtocartxl`, {
+            product_id : prod_id,
+            user_id : user_id,
+            qty_XL : qty_XL
+        })
+
+        return res.data
+    }
+}
+
+//update cart qty
+//SIZE S
+export const updateQTYS = (prod_id, user_id, qty_S) => {
+
+    return async () => {
+        const res = await axios.patch(`/updateqtys`, {
+            product_id : prod_id,
+            user_id : user_id,
+            qty_S : qty_S
+        })
+
+        return res.data
+    }
+}
+
+//SIZE M
+export const updateQTYM = (prod_id, user_id, qty_M) => {
+
+    return async () => {
+        const res = await axios.patch(`/updateqtym`, {
+            product_id : prod_id,
+            user_id : user_id,
+            qty_M : qty_M
+        })
+
+        return res.data
+    }
+}
+
+//SIZE L
+export const updateQTYL = (prod_id, user_id, qty_L) => {
+
+    return async () => {
+        const res = await axios.patch(`/updateqtyl`, {
+            product_id : prod_id,
+            user_id : user_id,
+            qty_L : qty_L
+        })
+
+        return res.data
+    }
+}
+
+//SIZE XL
+export const updateQTYXL = (prod_id, user_id, qty_XL) => {
+
+    return async () => {
+        const res = await axios.patch(`/updateqtyxl`, {
+            product_id : prod_id,
+            user_id : user_id,
+            qty_XL : qty_XL
+        })
+
+        return res.data
+    }
+}
+
+// GANTI QUANTITY
+//SIZE S
+export const changeQtyS = (id,qty_S) => {
+    return async() => {
+        const res = await axios.patch(`/changeqtys/${id}`,
+        {
+            qty_S : qty_S
+        })
+        return res.data
+    }
+}
+
+//SIZE M
+export const changeQtyM = (id,qty_M) => {
+    return async() => {
+        const res = await axios.patch(`/changeqtym/${id}`,
+        {
+            qty_M : qty_M
+        })
+        return res.data
+    }
+}
+
+//SIZE L
+export const changeQtyL = (id,qty_L) => {
+    return async() => {
+        const res = await axios.patch(`/changeqtyl/${id}`,
+        {
+            qty_L : qty_L
+        })
+        return res.data
+    }
+}
+
+//SIZE XL
+export const changeQtyXL = (id,qty_XL) => {
+    return async() => {
+        const res = await axios.patch(`/changeqtyxl/${id}`,
+        {
+            qty_XL : qty_XL
+        })
+        return res.data
+    }
+}
+
+//delete cart
+//delete cart user, jadi nembaknya ke userid
+
+export const deleteUserCart = (id) => {
+    return async () => {
+        try {
+            const res = await axios.delete(`/deletecart/${id}`)
+            console.log(res.data)
+        } catch (error) {
+            console.error(error)
+        }
+    }
+}
+
+//delete item didalem cart
+//id yang dipake itu id cart di database, jd liat urutan itemnya
+
+export const deleteItemCart = (id) => {
+    return async() => {
+        try {
+            const res = await axios.delete(`/deletecartitem/${id}`)
+        } catch (error) {
+            console.error(error)
+            
+        }
+    }
+}
+
+/////////////////////////////////
+////////////// CHECKOUT ////////
+//////////////////////////////////
+
+
+//post checkout
+
+export const postCheckout = ( user_id, total_price, order_name, order_address, order_phonenumber, cartArray) => {
+
+    return async () => {
+        try {
+            const res = await axios.post('/checkout', {
+                user_id, total_price, order_name, order_address, order_phonenumber, cartArray
+            })
+            console.log(res.data)
+
+            return res.data
+        } catch (error) {
+            console.error(error)
+        }
+    }
+}
+
+//narik transaksi by id
+
+export const getUserTransaction = (user_id) => {
+    return async () => {
+        try {
+            const res = await axios.get(`/usertransaction/${user_id}`)
+
+            return res.data
+        } catch (error) {
+            console.error(error)
+            
+        }
+    }
+}
+
+export const getItemsTransaction = (checkout_id) => {
+    return async() => {
+        try {
+            const res = await axios.get(`/usertransaction/items/${checkout_id}`)
+            return res.data
+        } catch (error) {
+            console.error(error)
+            
+        }
+    }
+}
+
+//upload payment proof
+
+export const uploadProof = (formData) => {
+    return async () => {
+        try{
+            const res = await axios.patch('/confirmation', formData)
+            console.log(res.data)
+
+        } catch (error) {
+            console.error(error)
+        }
+    }
+}
+
+
+////////////////////////////// ADMIN /////////////////////////////////////
+
+export const getAllTransaction = () => { 
+    return async () => {
+        try {
+            const res = await axios.get('/alltransactions')
+            return res.data
+        } catch (error) {
+            console.error(error)
+        }
+    }
+}
+
+export const getAdminTransaction = (checkout_id) => {
+    return async() => {
+        try {
+            const res = await axios.get(`/transactions/${checkout_id}`)
+            return res.data
+        } catch (error) {
+            console.error(error)
+        }
+    }
+}
+
+
+export const addResi = (id,resi) => {
+    return async () => {
+        try {
+            const res = await axios.patch(`/updateresi/${id}`, 
+            {order_awb : resi})
+
+            return res.data
+        } catch (error) {
+            console.error(error)
+        }
+    }
+}
+
+export const finishTranscation = (id) => {
+    return async () => {
+        try {
+            const res = await axios.patch(`/checkoutcomplete/${id}`)
+            return res.data
+        } catch (error) {
+            console.error(error)
+        }
+    }
+}
+
+export const rejectTransaction = (id, proof_of_payment) => {
+    return async() => {
+        try {
+            const res = await axios.patch (`/checkoutrejected/${id}`, {proof_of_payment})
+
+        } catch (error) {
+            
+        }
+    }
+}
 
 
 

@@ -107,5 +107,11 @@ class AddKaos extends Component {
         );
     }
 }
+const mapStatetoProps = state => {
+    return {
+        objectAdmin: state.adminAuth // bikin namanya sesuka hati
 
-export default connect(null, { addKaos })(AddKaos);
+    }
+}
+
+export default connect(mapStatetoProps, { addKaos })(AddKaos);
