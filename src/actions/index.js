@@ -1,7 +1,6 @@
 import axios from '../config/axios'
 import cookies from 'universal-cookie'
-import { async } from 'q';
-import { truncate } from 'fs';
+
 
 const cookie = new cookies()
 

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import Swal from 'sweetalert2'
+import swal from 'sweetalert'
 import { Link } from 'react-router-dom'
 import { getCart, deleteUserCart, deleteItemCart, changeQtyS, changeQtyM, changeQtyL, changeQtyXL } from '../../actions/index'
 
@@ -17,9 +18,32 @@ class CartUser extends Component {
         await this.props.getCart(this.props.objectUser)
     }
 
-    deleteCartButton = async (cartID) => {
+    cobaDelete = async(cartID) => {
         await this.props.deleteItemCart(cartID)
-        await this.props.getCart(this.props.objectUser)
+    }
+
+    deleteCartButton = async (cartID) => {
+
+        Swal.fire({
+            title: 'yakin mau delete?',
+            text: "coba dicek lagi",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: 'blue',
+            cancelButtonColor: 'red',
+            confirmButtonText: 'iye bacot'
+        }).then(async (result) => {
+            if (result.value === true) {
+
+                const res = await this.props.deleteItemCart(cartID)
+                console.log(result)
+                await this.props.getCart(this.props.objectUser)
+
+            }
+        })
+        
+        
+        
     }
 
     countTotalQTY = () => {

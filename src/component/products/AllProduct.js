@@ -5,15 +5,29 @@ import {getAllProduct,clearProduct} from '../../actions/index'
 
 class AllProduct extends Component{
 
-    async componentWillMount(){
-        // this.props.clearProduct()
-        window.scrollTo(0,0)
-        await this.props.getAllProduct()
-        console.log(this.props.productsSTATE)
+    state = {
+        products : [],
+        searchProducts : []
     }
 
+
+    async componentDidMount(){
+        
+        window.scrollTo(0,0)
+        const res = await this.props.getAllProduct()
+        this.setState({
+            products: this.props.productsSTATE,
+            searchProducts: this.props.productsSTATE
+        })
+        console.log(this.props.productsSTATE)
+        console.log(this.state.products)
+        console.log(this.state.searchProducts)
+    }
+
+    
+
     renderListProduct = () => {
-        let render = this.props.productsSTATE.map( product => {
+        let render = this.state.searchProducts.map( product => {
             return (
                 <div className="card col-11 col-sm-5 col-md-3 col-lg-3 m-3 shadow" key={product.id}>
                     <center>
@@ -39,7 +53,37 @@ class AllProduct extends Component{
         return render;
     }
 
+    onBtnSearch = () => {
+        const name = this.searchname.value
+        const min = parseInt(this.min.value)
+        const max = parseInt(this.max.value)
 
+        var arrSearch = this.state.products.filter(item => {
+            if(isNaN(min) && isNaN(max)){ // Search by Name
+                return (
+                    item.product_name.toLowerCase().includes(name.toLowerCase())
+                )
+            } else if (isNaN(min)) { // Search by Name & MAX
+                return (
+                    item.product_name.toLowerCase().includes(name.toLowerCase()) &&
+                    item.price <= max
+                )
+            } else if (isNaN(max)) { // Search by Name & MIN
+                return (
+                    item.product_name.toLowerCase().includes(name.toLowerCase()) &&
+                    item.price >= min
+                )
+            } else {
+                return ( // Search by MAX & MIN
+                    item.product_name.toLowerCase().includes(name.toLowerCase()) &&
+                    item.price <= max &&
+                    item.price >= min
+                )
+            }
+        })
+
+        this.setState({searchProducts : arrSearch})
+    }
 
     render(){
         return (
@@ -56,10 +100,16 @@ class AllProduct extends Component{
                             </header>
                                 <div className="filter-content">
                                     <div className="card-body">
+                                    <div className="border-bottom border-secondary card-title">
+                                    <h1>Search</h1>
+                                </div>
+                                                                
                                         <div className="form-row">
+                                        <form className="input-group"><input placeholder="name" ref={input => this.searchname = input} className="form-control mb-2" type="text" /></form>
+                                            <h4>Price Range</h4>
                                             <form className="input-group"><input placeholder="Minimum" ref={input => this.min = input} className="form-control mb-2" type="text" /></form>
                                             <form className="input-group"><input placeholder="Maximum" ref={input => this.max = input} className="form-control" type="text" /></form>
-                                            <button onClick={this.onBtnSearch} className="btn btn-outline-danger btn-block mt-5">Search</button>
+                                            <button onClick={() => {this.onBtnSearch()}} className="btn btn-outline-danger btn-block mt-5">Search</button>
                                     
                                         </div>
                                     </div>

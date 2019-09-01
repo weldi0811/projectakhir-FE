@@ -99,7 +99,7 @@ class ProductDetail extends Component {
         } else {
             const resdata = await this.props.addToCartS(prod_id,this.props.objectUser.id,qtyProduct_S)
 
-            if(resdata.insertID) {
+            if(resdata.affectedRows === 1) {
                 const Toast = Swal.mixin({
                     toast: true,
                     position: 'top',
@@ -158,7 +158,7 @@ class ProductDetail extends Component {
         } else {
             const resdata = await this.props.addToCartM(prod_id,this.props.objectUser.id,qtyProduct_M)
 
-            if(resdata.insertID) {
+            if(resdata.affectedRows === 1) {
                 const Toast = Swal.mixin({
                     toast: true,
                     position: 'top',
@@ -211,7 +211,7 @@ class ProductDetail extends Component {
         } else {
             const resdata = await this.props.addToCartL(prod_id,this.props.objectUser.id,qtyProduct_L)
 
-            if(resdata.insertID) {
+            if(resdata.affectedRows === 1) {
                 const Toast = Swal.mixin({
                     toast: true,
                     position: 'top',
@@ -264,7 +264,7 @@ class ProductDetail extends Component {
         } else {
             const resdata = await this.props.addToCartXL(prod_id,this.props.objectUser.id, qtyProduct_XL)
 
-            if(resdata.insertID) {
+            if(resdata.affectedRows === 1) {
                 const Toast = Swal.mixin({
                     toast: true,
                     position: 'top',
