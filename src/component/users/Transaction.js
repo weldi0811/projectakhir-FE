@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import Swal from 'sweetalert2'
 
-import { getUserTransaction, uploadProof, getItemsTransaction } from '../../actions/index'
+import { getUserTransaction, uploadProof, getItemsTransaction, finishTranscation } from '../../actions/index'
 
 
 class Transaction extends Component {
@@ -17,6 +17,8 @@ class Transaction extends Component {
 
     async componentWillMount() {
         await this.getUserTransactionIni()
+
+        console.log(this.state.modalTransaction)
         
     }
 
@@ -74,15 +76,48 @@ class Transaction extends Component {
         }
     }
 
+    finishTranscationFunc = (id) => {
+        Swal.fire({
+            title: 'yakin sob?',
+            text: "pastikan paket sudah tiba",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: 'blue',
+            cancelButtonColor: 'red',
+            confirmButtonText: 'iye bacot'
+        }).then(async (result) => {
+            if (result.value === true) {
+
+                const res = await this.props.finishTranscation(id)
+                console.log(res)
+
+                if (res.affectedRows) {
+                    Swal.fire(
+                        'Completed!',
+                        'The transaction has been completed.',
+                        'success'
+                    )
+
+                    this.getUserTransactionIni()
+                } else {
+                    alert('Error when finish a transaction')
+                }
+            }
+        })
+
+    }
+
     snippetProductModal = async(checkout_id) => {
         const productArray = await this.props.getItemsTransaction(checkout_id)
 
         console.log(productArray)
 
         await this.setState({modalTransaction : productArray})
+        console.log(this.state.modalTransaction)
         }
 
     renderTransDetail = () => {
+        console.log(this.state.modalTransaction)
         let render = this.state.modalTransaction.map(el => {
             return(
                 <tr key={el.id}>
@@ -138,8 +173,8 @@ class Transaction extends Component {
                             )}
 
                             <div className='mt-5'>
-                                <b> Status </b> :&nbsp;
-                                <button type='button'className={'btn btn-md ' + order_status_style } disabled> {order_status} </button>
+                                <b> Status : {order_status} </b> &nbsp;
+                                {order_status !== 'sent' ? <button type='button'className={'btn btn-md ' + order_status_style } disabled> {order_status} </button> : <button type='button'className={'btn btn-md ' + order_status_style } onClick={() => {this.finishTranscationFunc(id)}}> Finish Transaction </button> }
                             </div>
 
                             <div className='mt-3'>
@@ -240,4 +275,4 @@ const mapStatetoProps = state => {
     }
 }
 
-export default connect(mapStatetoProps, {getUserTransaction, uploadProof, getItemsTransaction})(Transaction);
+export default connect(mapStatetoProps, {getUserTransaction, uploadProof, getItemsTransaction, finishTranscation})(Transaction);

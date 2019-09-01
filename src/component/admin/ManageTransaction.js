@@ -12,10 +12,9 @@ class ManageTransaction extends Component {
         modalTransaction: []
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         this.getTransactions()
         console.log(this.state.allTransaction)
-
     }
 
     getTransactions = async () => {
@@ -26,9 +25,28 @@ class ManageTransaction extends Component {
 
     snippetProductModal = async (checkout_id) => {
         const arrayProduct = await this.props.getAdminTransaction(checkout_id)
-        console.log(arrayProduct)
-
         this.setState({ modalTransaction: arrayProduct })
+        console.log(this.state.modalTransaction)
+    }
+
+    renderTransDetail = () => {
+        let render = this.state.modalTransaction.map(el => {
+            return (
+                <tr key={el.checkout_id}>
+                    <th scope='col'> {el.product_name} </th>
+                    <th scope='col'> {el.qty_S}</th>
+                    <th scope='col'> {el.qty_M}</th>
+                    <th scope='col'> {el.qty_L}</th>
+                    <th scope='col'> {el.qty_XL}</th>
+                    <th scope='col'> {parseInt(el.qty_S + el.qty_M + el.qty_L + el.qty_XL)}</th>
+                    <th scope='col'> {el.total_price.toLocaleString()}</th>
+                    <th scope='col'> {(el.product_price * parseInt(el.qty_S + el.qty_M + el.qty_L + el.qty_XL)).toLocaleString()}</th>
+                </tr>
+            )
+        })
+
+        return render
+
     }
 
     addResiFunc = async (id) => {
@@ -43,7 +61,7 @@ class ManageTransaction extends Component {
 
                 await this.props.addResi(id, resi)
 
-                await this.props.getAllTransactions()
+                await this.getTransactions()
             }
         })
     }
@@ -108,26 +126,7 @@ class ManageTransaction extends Component {
     }
 
 
-    renderTransDetail = () => {
-        let render = this.state.modalTransaction.map(el => {
-            return (
-                <tr key={el.product_id}>
-                    <th scope='col'> {el.product_name} </th>
-                    <th scope='col'> {el.qty_S}</th>
-                    <th scope='col'> {el.qty_M}</th>
-                    <th scope='col'> {el.qty_L}</th>
-                    <th scope='col'> {el.qty_XL}</th>
-                    <th scope='col'> {parseInt(el.qty_S + el.qty_M + el.qty_L + el.qty_XL)}</th>
-                    <th scope='col'> {el.price.toLocaleString()}</th>
-                    <th scope='col'> {(el.price * parseInt(el.qty_S + el.qty_M + el.qty_L + el.qty_XL)).toLocaleString()}</th>
-
-                </tr>
-            )
-        })
-
-        return render
-
-    }
+    
 
     paymentProofModal = (proof_of_payment) => {
         Swal.fire({
@@ -170,19 +169,19 @@ class ManageTransaction extends Component {
                         <p>Name : {order_name}</p>
                         <p>Address : {order_address} </p>
                         <p>Phone Number : {order_phonenumber}</p>
-                        <p>
-                            Resi : {order_awb === null ? <button className='btn btn-info btn-sm' onClick={() => { this.addResiFunc(id) }}>Add Resi</button> : <p>{order_awb}</p>}
-                        </p>
+                        <span>
+                            Resi : {order_awb === null ? <button className='btn btn-info btn-sm' onClick={() => { this.addResiFunc(id) }}>Add Resi</button> : <h5>{order_awb}</h5>}
+                        </span>
 
                     </th>
                     <th scope='col'>
-                        {proof_of_payment === null ? <p>Masih menunggu pembayaran</p> : <button classname='btn btn-link' onClick={() => { this.paymentProofModal(proof_of_payment)}}>
+                        {proof_of_payment === null ? <p>Masih menunggu pembayaran</p> : <button className='btn btn-link' onClick={() => { this.paymentProofModal(proof_of_payment)}}>
                             <img src={`http://localhost:4000/proof/${proof_of_payment}`} className='card-img' alt={proof_of_payment} style={{ width : '75%' }} />
                         </button>}
                     </th>
                     <th scope='col'>
                         <p>Total price : Rp. {total_price.toLocaleString()} </p>
-                        <button className='btn btn-outline-info' onClick={() => { this.snippetProductModal(id) }} data-toggle='modal' data-target='#snippetproductmodal' >See Products</button>
+                        <button className='btn btn-outline-info' onClick={() => { this.snippetProductModal(id) }} data-toggle='modal' data-target='#snippetProductModal' >See Products</button>
                         <br /> <br />
 
                         {order_status === 'Completed' ? (
@@ -237,7 +236,7 @@ class ManageTransaction extends Component {
                                 </tr>
                             </thead>
                             {/* render all transaction */}
-                            <tbody> {this.renderTransactions()}  </tbody>
+                            <tbody>{this.renderTransactions()}</tbody>
 
                         </table>
                     </div>
@@ -256,10 +255,15 @@ class ManageTransaction extends Component {
                                 <table className="table table-hover mb-5">
                                     <thead>
                                         <tr>
-                                            <th scope="col" colSpan="2">Products</th>
-                                            <th scope="col">Quantity</th>
-                                            <th scope="col">Price</th>
+                                            <th scope="col">Products</th>
+                                            <th scope="col">Quantity S</th>
+                                            <th scope="col">Quantity M</th>
+                                            <th scope="col">Quantity L</th>
+                                            <th scope="col">Quantity XL</th>
+                                            <th scope="col">Total Items</th>
+                                            <th scope="col">Product Price</th>
                                             <th scope="col">Total Price</th>
+                                            
                                         </tr>
                                     </thead>
                                     <tbody>
