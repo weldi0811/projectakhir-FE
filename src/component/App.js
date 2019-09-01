@@ -18,6 +18,7 @@ import AddKemeja from './admin/AddKemeja'
 import AdminDashboard from '../component/admin/AdminDashboard'
 import ListProduct from '../component/admin/ListProduct'
 import DetailProduct from '../component/admin/DetailProduct'
+import ManageTransaction from '../component/admin/ManageTransaction'
 
 import {BrowserRouter,Route} from 'react-router-dom'
 import {keepLogin} from '../actions/index'
@@ -47,6 +48,7 @@ class App extends Component {
             <Route path ='/inputkemeja' component={AddKemeja}/>
             <Route path ='/dashboard' component={AdminDashboard}/>
             <Route path ='/listproduk' component={ListProduct}/>
+            <Route path ='/orders' component={ManageTransaction}/>
             <Route path ='/admin/produk/:prod_id' component={DetailProduct}/>
 
 

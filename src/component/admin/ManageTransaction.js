@@ -3,7 +3,7 @@ import Swal from 'sweetalert2'
 import { connect } from 'react-redux'
 
 import { getAllTransaction, getAdminTransaction, addResi, finishTranscation, rejectTransaction } from '../../actions/index'
-import { async } from 'q';
+import {Link} from 'react-router-dom'
 
 class ManageTransaction extends Component {
 
@@ -14,6 +14,7 @@ class ManageTransaction extends Component {
 
     componentDidMount() {
         this.getTransactions()
+        console.log(this.state.allTransaction)
 
     }
 
@@ -42,7 +43,7 @@ class ManageTransaction extends Component {
 
                 await this.props.addResi(id, resi)
 
-                await this.getAllTransactions()
+                await this.props.getAllTransactions()
             }
         })
     }
@@ -59,7 +60,7 @@ class ManageTransaction extends Component {
         }).then(async (result) => {
             if (result.value === true) {
 
-                const res = await this.props.finishTransaction(id)
+                const res = await this.props.finishTranscation(id)
                 console.log(res)
 
                 if (res.affectedRows) {
@@ -138,7 +139,7 @@ class ManageTransaction extends Component {
 
     renderTransactions = () => {
         let render = this.state.allTransaction.map(el => {
-            let { id, user_id, username, email, total_price, order_name, order_address, order_phonenumber, order_awb, order_status, proof_of_payment } = el
+            let { id, user_id, username, email, total_price, order_name, order_address, created_at, order_phonenumber, order_awb, order_status, proof_of_payment } = el
 
             var order_status_style = ''
             if (order_status === 'pending') {
@@ -175,8 +176,8 @@ class ManageTransaction extends Component {
 
                     </th>
                     <th scope='col'>
-                        {proof_of_payment === null ? <p>Masih menunggu pembayaran</p> : <button classname='btn btn-link' onClick={() => { this.paymentProofModal(proof_of_payment) }}>
-                            <img src={`http://localhost:4000/proof/${proof_of_payment}`} className='card-img' alt={proof_of_payment} style={{ width='75%' }} />
+                        {proof_of_payment === null ? <p>Masih menunggu pembayaran</p> : <button classname='btn btn-link' onClick={() => { this.paymentProofModal(proof_of_payment)}}>
+                            <img src={`http://localhost:4000/proof/${proof_of_payment}`} className='card-img' alt={proof_of_payment} style={{ width : '75%' }} />
                         </button>}
                     </th>
                     <th scope='col'>
@@ -202,7 +203,17 @@ class ManageTransaction extends Component {
 
 
     render() {
-        if (this.props.objectAdmin.id === '') return <h1>ACCESS DENIED</h1>
+        if (this.props.objectAdmin.id === ''){
+            return (
+                <div className='center'>
+                    <h1 className='center'>ACCESS DENIED</h1>
+                    <Link to='/admin'>
+                    <button className='btn btn-primary'>LOGIN</button>
+                    </Link>
+                </div>
+                
+            )
+        }
 
         return (
             <div className='mx-5'>
@@ -252,7 +263,7 @@ class ManageTransaction extends Component {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {this.renderTransactionDetail()}
+                                        {this.renderTransDetail()}
                                     </tbody>
                                 </table>
                             </div>
@@ -269,9 +280,7 @@ class ManageTransaction extends Component {
 
 const mapStatetoProps = state => {
     return {
-        objectUser: state.auth,
         objectAdmin: state.adminAuth // bikin namanya sesuka hati
-
     }
 }
 

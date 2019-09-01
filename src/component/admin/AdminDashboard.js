@@ -42,8 +42,20 @@ class AdminDashboard extends Component {
                                 </div>
                             </p>
                         </Jumbotron>
-
                     </div>
+                    <div className='row'>
+                        <Jumbotron className='bg col col-md-12 col-sm-12 col-lg-12 mr-1'>
+                            <h1 className="display-4 text-center">TRANSACTIONS</h1>
+                            <p className="lead">
+                                <div className='text-center'>
+                                    <Link to='/orders'>
+                                        <Button className='btn'>MANAGE TRANSACTION</Button>
+                                    </Link>
+                                </div>
+                            </p>
+                        </Jumbotron>
+                    </div>
+                    
                 </div>
             </div>
         );
@@ -53,7 +65,6 @@ class AdminDashboard extends Component {
 const mapStatetoProps = state => {
     return {
         objectAdmin: state.adminAuth // bikin namanya sesuka hati
-
     }
 }
 
