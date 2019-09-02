@@ -98,19 +98,48 @@ class CheckoutUser extends Component {
     }
 
     render() {
-        return (
-            <div>
+        if (this.props.cartState.length === 0) {
+            return (
+                <div>
 
-                <center>
-                    <h3>
-                         Total yang harus dibayar : <b> Rp. {(this.countTotal()).toLocaleString()}  </b> 
-                    </h3>
-                </center>
+                    <center >
+                    <br /><br /><br /><br /><br /><br />
+                        <h1 >
+                            <b>BELUM ADA BELANJAAN</b>
+                        </h1>
+                        <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+                    </center>
 
-                {this.renderAddressForm()}
-                <button className="btn btn-success btn-block radius-custom" onClick={() => this.submitCheckout()} >SUBMIT</button>
-            </div>
-        );
+                </div>
+            );
+        } else if (this.props.objectUser.phone_number === null ){
+            return(
+                <div>
+                    <center>
+                        <h1>Nomor telpon anda belum diisi, silahkan dilengkapi dulu</h1>
+                        <Link to='/profile'>
+                            <button className='btn btn-primary'>To Profile</button>
+                        </Link>
+                    </center>
+                </div>
+            )
+            
+        } else {
+            return (
+                <div>
+
+                    <center>
+                        <h3>
+                            Total yang harus dibayar : <b> Rp. {(this.countTotal()).toLocaleString()}  </b>
+                        </h3>
+                    </center>
+
+                    {this.renderAddressForm()}
+                    <button className="btn btn-success btn-block radius-custom" onClick={() => this.submitCheckout()} >SUBMIT</button>
+                </div>
+            );
+        }
+
     }
 }
 

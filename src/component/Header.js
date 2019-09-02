@@ -45,29 +45,29 @@ class Header extends React.Component{
                         {/* ngisi produk dkk*/}
                         <Nav className = 'd-md-flex d-block flex-row mx-md-auto' navbar>
 
-                        <div class="dropdown">
+                        <div className="dropdown btn-group">
                             <Button className="btn btn-light dropdown-toggle"
                                 type="button" id="dropdownMenu1" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
                                     Products
                             </Button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                <div className="dropdown-menu" aria-labelledby="dropdownMenu1">
 
                                 <NavItem className ='mx-2'>
                                     <Link to='/kaos'>
-                                        <button className = 'btn btn-light'>Kaos</button>
+                                        <button className = 'btn btn-light ' style={{width:'100%'}}>Kaos</button>
                                     </Link>   
                                 </NavItem>
 
                                 <NavItem className ='mx-2'>
                                     <Link to='/kemeja'>
-                                        <button className = 'btn btn-light'>Kemeja</button>
+                                        <button className = 'btn btn-light' style={{width:'100%'}}>Kemeja</button>
                                     </Link>
                                 </NavItem>
 
                                 <NavItem className ='mx-2'>
                                     <Link to='/allproduct'>
-                                        <button className = 'btn btn-light'>All Product</button>
+                                        <button className = 'btn btn-light' style={{width:'100%'}}>All Product</button>
                                     </Link>   
                                 </NavItem>
                                 </div>
@@ -83,7 +83,7 @@ class Header extends React.Component{
                         <Nav className="ml-mx-auto" navbar>
                             <NavItem className ='mx-2'>
                                 <Link to='/login'>
-                                    <button className = 'btn btn-light'>Sign In</button>
+                                    <button className = 'btn btn-light' >Sign In</button>
                                 </Link>
                             </NavItem>
                         </Nav>
@@ -108,29 +108,29 @@ class Header extends React.Component{
                         <Collapse isOpen={this.state.isOpen} navbar>
                         {/* ngisi produk dkk*/}
                         <Nav className = 'd-md-flex d-block flex-row mx-md-auto' navbar>
-                        <div class="dropdown">
+                        <div class="dropdown btn-group">
                             <Button className="btn btn-light dropdown-toggle"
                                 type="button" id="dropdownMenu1" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false">
+                                aria-haspopup="true" aria-expanded="false" >
                                     Products
                             </Button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
 
                                 <NavItem className ='mx-2'>
                                     <Link to='/kaos'>
-                                        <button className = 'btn btn-light'>Kaos</button>
+                                        <button className = 'btn btn-light' style={{width:'100%'}}>Kaos</button>
                                     </Link>   
                                 </NavItem>
 
                                 <NavItem className ='mx-2'>
                                     <Link to='/kemeja'>
-                                        <button className = 'btn btn-light'>Kemeja</button>
+                                        <button className = 'btn btn-light' style={{width:'100%'}}>Kemeja</button>
                                     </Link>
                                 </NavItem>
 
                                 <NavItem className ='mx-2'>
                                     <Link to='/allproduct'>
-                                        <button className = 'btn btn-light'>All Product</button>
+                                        <button className = 'btn btn-light' style={{width:'100%'}}>All Product</button>
                                     </Link>   
                                 </NavItem>
                                 </div>
@@ -145,7 +145,7 @@ class Header extends React.Component{
 
                         {/* logout */}
                         <Nav className="ml-mx-auto" navbar>
-                           <div class="dropdown">
+                           <div class="dropdown btn-group btn-group-justified" style = {{width:'100%'}}>
                             <Button className="btn btn-light"
                                 type="button" id="dropdownMenu1" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
@@ -156,29 +156,29 @@ class Header extends React.Component{
 
                                 <NavItem className ='mx-2'>
                                     <Link to='/profile'>
-                                        <button className = 'btn btn-light'>Profile</button>
+                                        <button className = 'btn btn-light' style={{width:'100%'}}>Profile</button>
                                     </Link>   
                                 </NavItem>
 
                                 <NavItem className ='mx-2'>
                                     <Link to='/cart'>
-                                        <button className = 'btn btn-light'>cart</button>
+                                        <button className = 'btn btn-light' style={{width:'100%'}}>cart</button>
                                     </Link>
                                 </NavItem>
 
                                 <NavItem className ='mx-2'>
                                     <Link to='/checkout'>
-                                        <button className = 'btn btn-light'>checkout</button>
+                                        <button className = 'btn btn-light' style={{width:'100%'}}>checkout</button>
                                     </Link>
                                 </NavItem>
                                 <NavItem className ='mx-2'>
                                     <Link to='/myorder'>
-                                        <button className = 'btn btn-light'>My orders</button>
+                                        <button className = 'btn btn-light' style={{width:'100%'}}>My orders</button>
                                     </Link>
                                 </NavItem>
 
                                 <NavItem className ='mx-2'>
-                                        <button className = 'btn btn-light' onClick={()=>{this.props.onLogout()}}>logout</button>
+                                        <button className = 'btn btn-light' style={{width:'100%'}} onClick={()=>{this.props.onLogout()}}>logout</button>
                                 </NavItem>
                                 </div>
                             </div>

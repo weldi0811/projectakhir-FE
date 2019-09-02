@@ -239,19 +239,29 @@ class CartUser extends Component {
 
 
     render() {
-        return (
-            <div>
-                <div className='container mt-1'>
-                    {this.renderCart()}
-
-                    <h1 className='text-center'>Total : Rp {this.countTotal()}</h1>
-                    <Link to='/checkout'>
-                            <button className="btn btn-success btn-lg btn-block text-center"> CHECKOUT </button>                   
-                        </Link>
-
+        if(this.props.objectUser.verified === 0){
+            return (
+                <div> 
+                    <center>
+                        <h1> Akun anda belum terverifikasi. silahkan cek Email untuk verifikasi</h1>
+                    </center>
                 </div>
-            </div>
-        );
+            )
+        } else {
+            return (
+                <div>
+                    <div className='container mt-1'>
+                        {this.renderCart()}
+    
+                        <h1 className='text-center'>Total : Rp {this.countTotal()}</h1>
+                        <Link to='/checkout'>
+                                <button className="btn btn-success btn-lg btn-block text-center"> CHECKOUT </button>                   
+                            </Link>
+    
+                    </div>
+                </div>
+            );
+        }
     }
 }
 
