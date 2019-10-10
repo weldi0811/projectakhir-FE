@@ -16,6 +16,7 @@ class AdminLogin extends Component{
 
         this.props.onLoginAdmin(data_username,data_password)
         
+        
     }
 
     render(){

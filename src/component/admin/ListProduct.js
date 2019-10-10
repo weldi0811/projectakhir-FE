@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { getAllProduct, clearProduct } from '../../actions/index'
+import HeaderAdmin from '../HeaderAdmin'
 
 class ListProduct extends Component {
 
@@ -47,14 +48,28 @@ class ListProduct extends Component {
     }
 
     render() {
-        return (
-            <div>
-                <h1 className='text-center my-2'>LIST PRODUK</h1>
-                <div className="row col-12 offset-1">
-                    {this.renderProductList()}
+        if(this.props.objectAdmin.admin_name !== ''){
+            return (
+                <div>
+                    <HeaderAdmin />
+                    <h1 className='text-center my-2'>LIST PRODUK</h1>
+                    <div className="row col-12 offset-1">
+                        {this.renderProductList()}
+                    </div>
                 </div>
-            </div>
-        );
+            );
+        } else {
+            return(
+                <div>
+                    <div className='center'>
+                    <h1 className='center'>ACCESS DENIED</h1>
+                    <Link to='/admin'>
+                    <button className='btn btn-primary'>LOGIN</button>
+                    </Link>
+                </div>
+                </div>
+            )
+        }
     }
 }
 

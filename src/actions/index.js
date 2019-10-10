@@ -1,9 +1,12 @@
 import axios from '../config/axios'
 import cookies from 'universal-cookie'
+import { async } from 'q';
 
 
 const cookie = new cookies()
 
+
+//refactor added address
 export const onLoginUser = (inputEmail,inputPassword) => {
     return async(dispatch) => {
         var getUser = await axios.post('/users/login', {
@@ -19,15 +22,21 @@ export const onLoginUser = (inputEmail,inputPassword) => {
             }
             else{
                 const { id, first_name, last_name, username, email, phone_number, verified, avatar} = getUser.data
+                
+                //get Address
+                const resultAddress = await axios.get(`/address/${id}`)
+
+                const address = resultAddress.data
+                console.log(address)
 
                 //set cookie
-                cookie.set('ithinkUser', { id, first_name, last_name, username, email, phone_number, verified, avatar })
+                cookie.set('ithinkUser', { id, first_name, last_name, username, email, phone_number, verified, avatar , address})
                 
                 //kirim data user ke dispatch
                 dispatch({
                     type:'LOGIN_SUCCESS',
                     payload : { 
-                        id, first_name, last_name, username, email, phone_number, verified, avatar
+                        id, first_name, last_name, username, email, phone_number, verified, avatar, address
                     }
                 })
             }
@@ -40,12 +49,12 @@ export const onLoginUser = (inputEmail,inputPassword) => {
 
 //KEEPLOGIN
 export const keepLogin = (objectUser) => {
-    const {id, first_name, last_name, username, email, phone_number, verified, avatar} = objectUser
+    const {id, first_name, last_name, username, email, phone_number, verified, avatar, address} = objectUser
 
     return{
         type:'LOGIN_SUCCESS',
         payload : { 
-            id, first_name, last_name, username, email, phone_number, verified, avatar
+            id, first_name, last_name, username, email, phone_number, verified, avatar, address
         }
     }
 }
@@ -68,9 +77,9 @@ export const updateAvatar = (formData,objectUser) => {
 
         cookie.remove('ithinkUser')
 
-        const {id,first_name,last_name,username,phone_number, avatar} = objectUser
+        const {id,first_name,last_name,username,phone_number, avatar, address} = objectUser
 
-        cookie.set('ithinkUser', {id,first_name,last_name,username,phone_number, avatar : result.data.filename})
+        cookie.set('ithinkUser', {id,first_name,last_name,username,phone_number, avatar : result.data.filename, address})
 
         dispatch({
             type: 'UPDATE_AVATAR',
@@ -82,7 +91,7 @@ export const updateAvatar = (formData,objectUser) => {
 //EDIT PROFILE
 export const editProfile = (newFName,newLName,newPhoneNumber, objectUser) => {
 
-    const {id,first_name,last_name,username,email,phone_number,avatar} = objectUser
+    const {id,first_name,last_name,username,email,phone_number,avatar, address} = objectUser
 
     return async(dispatch) => {
         const res = await axios.patch(`/users/profile/${objectUser.username}`, {
@@ -99,7 +108,8 @@ export const editProfile = (newFName,newLName,newPhoneNumber, objectUser) => {
         phone_number : newPhoneNumber,
         email,
         username,
-        avatar
+        avatar,
+        address
     })
 
     dispatch({
@@ -116,13 +126,13 @@ export const editProfile = (newFName,newLName,newPhoneNumber, objectUser) => {
 //DELETE AVATAR
 export const deleteAvatar = (objectUser) => {
     return async dispatch => {
-        const {id,first_name,last_name,username,email,phone_number,avatar} = objectUser
+        const {id,first_name,last_name,username,email,phone_number,avatar, address} = objectUser
 
         const res = await await axios.delete(`/users/avatar/${id}`)
 
         cookie.remove('ithinkUser')
 
-        cookie.set('ithinkUser', {id,first_name,last_name,username,email,phone_number,avatar: null} )
+        cookie.set('ithinkUser', {id,first_name,last_name,username,email,phone_number,avatar: null, address} )
 
         dispatch({
             type: 'DELETE_AVATAR'
@@ -137,13 +147,29 @@ export const deleteAvatar = (objectUser) => {
 //BUAT PRODUCT
 ////////////////////////////////////////////////////
 
+//NARIK CATEGORY BUAT DIPOPULATE KE DROPDOWN
+export const getCategories = () => {
+    return async() => {
+        try {
+
+            const result = await axios.get('/category')
+            
+            return result
+            
+        } catch (error) {
+            console.log(error)
+            
+        }
+    }
+}
+
 //NARIK PRODUCT by category
-export const getProductByCategory = (category_id) => {
+export const getProductByCategory = (category) => {
 
     return async(dispatch) =>{
         try{
             
-            const result = await axios.get(`/products/${category_id}`)
+            const result = await axios.get(`/products/${category}`)
 
             console.log(result.data)
 
@@ -213,11 +239,12 @@ export const editProduct = (productID, product_name, price, description) => {
 
 
 //ADD PRODUCT BY CATEGORY
-export const addKaos = (formData) => {
+export const addItem = (formData) => {
     return async () => {
         try {
-            const res = await axios.post('/product/1', formData)
-
+            const res = await axios.post('/products', formData)
+            console.log(res)
+            return res
         }
         catch (err){
             console.error(err)
@@ -225,16 +252,7 @@ export const addKaos = (formData) => {
     }
 }
 
-export const addKemeja = (formData) => {
-    return async () => {
-        try{
-            const res = await axios.post('/product/2', formData)
-        }
-        catch (err) {
-            console.error(err)
-        }
-    }
-}
+
 
 
 
@@ -616,5 +634,24 @@ export const rejectTransaction = (id, proof_of_payment) => {
     }
 }
 
+////////////////////////////////////////
+/////////////// ADDRESS ////////////////
+////////////////////////////////////////
+
+//address cuma bisa bikin dan delete, belom bisa edit
+
+export const getAddresses = (objectUser) => {
+
+    const {id, first_name,last_name,username,email,phone_number,avatar,address} = objectUser
+
+    return async(dispatch) => {
+        const res = await axios.get(`/address/${objectUser.id}`)
+
+        dispatch({
+            type: 'GET_ADDRESS',
+            payload: res.data
+        })
+    }
+}
 
 

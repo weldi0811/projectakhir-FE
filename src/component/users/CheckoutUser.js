@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import Swal from 'sweetalert2'
 import { Link, Redirect } from 'react-router-dom'
+import Header from '../Header'
+import Footer from '../Footer'
 
 import { deleteUserCart, postCheckout, getCart } from '../../actions/index'
 
@@ -10,13 +12,14 @@ class CheckoutUser extends Component {
 
     state = {
         loading: false,
-        redirect: false
+        redirect: false,
+        addressId : 0
     }
 
 
     async componentWillMount() {
         await this.props.getCart(this.props.objectUser)
-        console.log(this.props.objectUser)
+        console.log(this.props.objectUser.address)
         console.log(this.props.cartState)
     }
 
@@ -29,31 +32,42 @@ class CheckoutUser extends Component {
         return total
     }
 
+   
+    renderAddressOption = () => {
+        console.log(this.props.objectUser.address)
+        let render = this.props.objectUser.address.map(item => {
+            
+            return (
+                <option value={item.address_detail} className='radius-custom' key={item.id}>{item.address_detail}</option>
+            )
+        })
+        return render
+    }
+    renderAddress = () => {
+        return(
+            <div>
+                <select className='custom-select radius-custom' name='selectedaddress' ref={ input => this.selectedAddress = input } >
+                    {this.renderAddressOption()}
+                </select>
+                
+            </div>
+        )
+    }
+
+    // renderAddressDetails = () => {
+        
+    // }
     renderAddressForm = () => {
         return (
             <div>
+
+                
+                
                 <div>
-                    <h1 className='text-center mb-5'>Input Address</h1>
+                    <h1 className='text-center mb-5'>Select Address</h1>
                 </div>
                 <div className='row'>
-                    <div className='container offset-2 col-8 mb-5'>
-                        <form>
-                            <p className="lead">Nama Penerima : {this.props.objectUser.first_name} {this.props.objectUser.last_name}</p>
-                            <p className="lead">No. Handphone : {this.props.objectUser.phone_number}</p>
-                            <div className='row'>
-
-                                <form className="input-group col-12">
-                                    <textarea placeholder="Masukkan Alamat" ref={input => this.address = input} className="form-control mb-2" type="text" style={{ height: "200px" }} required />
-                                </form>
-                            </div>
-
-
-                            <input type='text' ref={input => this.city = input} className='form-control' placeholder='Kota atau kecamatan' required></input>
-                            <br />
-                            <input type='number' ref={input => this.postalCode = input} className='form-control' placeholder='Kode Pos' required></input>
-                            <br />
-                        </form>
-                    </div>
+                <div className='container col-8 mb-5'>{this.renderAddress()}</div>
                 </div>
             </div>
         )
@@ -66,7 +80,7 @@ class CheckoutUser extends Component {
         console.log(objectUser)
         console.log(cartState)
 
-        const order_address = this.address.value + ',' + this.city.value + ',' + this.postalCode.value
+        const order_address = this.selectedAddress.value
 
         const order_name = objectUser.first_name + ' ' + objectUser.last_name
         const order_phonenumber = objectUser.phone_number
@@ -101,6 +115,7 @@ class CheckoutUser extends Component {
         if (this.props.cartState.length === 0) {
             return (
                 <div>
+                    <Header />
 
                     <center >
                     <br /><br /><br /><br /><br /><br />
@@ -109,18 +124,20 @@ class CheckoutUser extends Component {
                         </h1>
                         <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
                     </center>
-
+                    <Footer />
                 </div>
             );
         } else if (this.props.objectUser.phone_number === null ){
             return(
                 <div>
+                    <Header />
                     <center>
                         <h1>Nomor telpon anda belum diisi, silahkan dilengkapi dulu</h1>
                         <Link to='/profile'>
                             <button className='btn btn-primary'>To Profile</button>
                         </Link>
                     </center>
+                    <Footer />
                 </div>
             )
             

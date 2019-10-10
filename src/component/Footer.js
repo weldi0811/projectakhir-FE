@@ -41,17 +41,15 @@ onSubscribeClick = async () => {
             <div className='row'>
               {/* footer buat link*/}
               <div className='col-md-6'>
-                <h3 className='font-weight-bold text-uppercase mt-2 text-white'>Links</h3>
+                <h3 className='font-weight-bold text-uppercase mt-2 text-white'>Follow us</h3>
                 <ul className='list-unstyled'>
                   <li>
-                    <a href='/asdf'>link1</a>
+                    <a href='/https://www.instagram.com/ithink.id/'><i class="fab fa-instagram"></i> Instagram</a>
                   </li>
                   <li>
-                    <a href='/asdf2'>link2</a>
+                    <a href='https://github.com/weldi0811'><i class="fab fa-github"></i> GitHub</a>
                   </li>
-                  <li>
-                    <a href='/asdf3'>link3</a>
-                  </li>
+                  
                 </ul>
               </div>
               {/* footer buat form subscription*/}

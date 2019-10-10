@@ -1,6 +1,8 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
+import Header from '../Header'
+import Footer from '../Footer'
 
 
 import {getProductByCategory,clearProduct} from '../../actions/index'
@@ -15,7 +17,7 @@ class Kemeja extends Component{
     async componentDidMount(){
         this.props.clearProduct()
         window.scrollTo(0,0)
-        await this.props.getProductByCategory(2)
+        await this.props.getProductByCategory('kemeja')
 
         this.setState({
             products : this.props.productsSTATE,
@@ -88,6 +90,7 @@ class Kemeja extends Component{
         return (
             // Category and Price Filter column
             <div>
+                <Header />
                 <div className="row">
                     <div className="col-sm-12 col-md-2 col-lg-2 mt-2 ">
                         <div className="card make-me-sticky">
@@ -119,12 +122,12 @@ class Kemeja extends Component{
 
                     {/* render getProducts() */}
                     <div className="row col-10">
-
                         {this.renderListProduct()}
 
                     </div>
 
-                </div>    
+                </div>   
+                <Footer /> 
             </div>
         )
     }

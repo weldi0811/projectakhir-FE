@@ -45,14 +45,14 @@ class App extends Component {
         <BrowserRouter>
             <Route path ='/admin' exact component={AdminLogin}/>
             <Route path ='/inputkaos' component={AddKaos}/>
-            <Route path ='/inputkemeja' component={AddKemeja}/>
+            {/* <Route path ='/inputkemeja' component={AddKemeja}/> */}
             <Route path ='/dashboard' component={AdminDashboard}/>
             <Route path ='/listproduk' component={ListProduct}/>
             <Route path ='/orders' component={ManageTransaction}/>
             <Route path ='/admin/produk/:prod_id' component={DetailProduct}/>
 
 
-            <Header />
+            
             <Route path ='/' exact component={Home} />
             <Route path ='/login' component={Login} />
             <Route path ='/register' component={Register} />
@@ -64,7 +64,7 @@ class App extends Component {
             <Route path ='/cart' component = {CartUser} />
             <Route path ='/checkout' component = {CheckoutUser} />
             <Route path ='/myorder' component = {Transaction} />
-            <Footer />
+            
             
         </BrowserRouter>
         

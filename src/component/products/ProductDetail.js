@@ -4,6 +4,8 @@ import { connect } from 'react-redux'
 import axios from '../../config/axios';
 import Swal from 'sweetalert2'
 import {getCart,addToCartL,addToCartXL,addToCartS,addToCartM,updateQTYS,updateQTYM,updateQTYL,updateQTYXL} from '../../actions/index'
+import Header from '../Header'
+import Footer from '../Footer'
 
 
 const imageStyle = {
@@ -337,7 +339,7 @@ class ProductDetail extends Component {
             <div className='jumbotron' style={verticalCenter}>
                 <div className='container' style={{ borderRadius: '25px' }}>
                     <Link to='/allproduct'>
-                        <button>back</button>
+                        <button className='btn btn-primary'><i class="fas fa-arrow-left"></i></button>
                     </Link>
                     <div className='row m-5'>
                         <div className='col'>
@@ -368,7 +370,9 @@ class ProductDetail extends Component {
     render() {
         return (
             <div>
+                <Header />
                 {this.renderItem()}
+                <Footer />
             </div>
         );
     }

@@ -10,22 +10,25 @@ import {
 import banner1 from './../img/banner1.png'
 import banner2 from './../img/banner2.jpg'
 import banner3 from './../img/banner3.jpg'
+import banner5 from './../img/banner5.jpg'
+import banner7 from './../img/banner7.jpg'
+import banner6 from './../img/banner6.png'
 
 import '../css/home.css'
 
 const items = [
   {
-    src: banner1,
+    src: banner5,
     altText: 'Slide 1',
     caption: 'Slide 1'
   },
   {
-    src: banner2,
+    src: banner6,
     altText: 'Slide 2',
     caption: 'Slide 2'
   },
   {
-    src: banner3,
+    src: banner7,
     altText: 'Slide 3',
     caption: 'Slide 3'
   }

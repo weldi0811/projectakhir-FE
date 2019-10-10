@@ -2,6 +2,8 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {getAllProduct,clearProduct} from '../../actions/index'
+import Header from '../Header'
+import Footer from '../Footer'
 
 class AllProduct extends Component{
 
@@ -24,7 +26,15 @@ class AllProduct extends Component{
         console.log(this.state.searchProducts)
     }
 
-    
+    compare = (a,b) => {
+        if(a.status < b.status){
+            return -1
+        }
+        if(a.status > b.status){
+            return 1
+        }
+        return 0
+    }
 
     renderListProduct = () => {
         let render = this.state.searchProducts.map( product => {
@@ -89,6 +99,7 @@ class AllProduct extends Component{
         return (
             // Category and Price Filter column
             <div>
+                <Header />
             <div className="row">
                 <div className="col-sm-12 col-md-2 col-lg-2 mt-2 ">
                     <div className="card make-me-sticky">
@@ -120,12 +131,12 @@ class AllProduct extends Component{
 
                     {/* render getProducts() */}
                     <div className="row col-10">
-
                         {this.renderListProduct()}
 
                     </div>
 
-                </div>    
+                </div>   
+                <Footer /> 
             </div>
         )
     }

@@ -7,7 +7,6 @@ import { connect } from 'react-redux';
 class Login extends Component {
 
     onLoginClick = () => {
-        console.log('1234')
         const data_email = this.email.value
         const data_password = this.password.value   
         

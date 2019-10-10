@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import Swal from 'sweetalert2'
+import Header from '../Header'
+import Footer from '../Footer'
 
 import { getUserTransaction, uploadProof, getItemsTransaction, finishTranscation } from '../../actions/index'
 
@@ -209,16 +211,22 @@ class Transaction extends Component {
         }
         if(this.state.arrayTransaction.length === 0){
             return(
-                <div className='container mt-6'>
+                <div>
+                    <Header />
+                    <div className='container mt-6'>
                     <center>
                         <h1>BELUM ADA TRANSAKSI</h1>
                     </center>
+                </div>
+                    <Footer />
                 </div>
             )
         }
 
         return(
-            <div className='container'>
+            <div>
+                <Header />
+                <div className='container'>
                 <center>
                     <h1 className = 'mt-5'>
                         TRANSACTION
@@ -262,6 +270,8 @@ class Transaction extends Component {
                             </div>
                         </div>
                     </div>
+            </div>
+            <Footer />
             </div>
         )
     }
